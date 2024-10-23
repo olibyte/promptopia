@@ -31,7 +31,7 @@ const Nav = () => {
                         <Link href="/create-prompt" className="black_btn">Create Prompt</Link>
                         <button type="button" onClick={signOut} className="outline_btn">Sign Out</button>
                         <Link href="/profile">
-                            <Image src="/assets/images/logo.svg" alt="profile" width={37} height={37} className="rounded-full" />
+                            <Image src={session?.user.image} alt="profile" width={37} height={37} className="rounded-full" />
                         </Link>
                     </div>
 
@@ -56,7 +56,7 @@ const Nav = () => {
                 {session?.user ? (
                     <div className="flex gap-3">
                         <Image
-                            src="/assets/images/logo.svg"
+                            src={session?.user.image}
                             alt="profile"
                             width={37}
                             height={37}
