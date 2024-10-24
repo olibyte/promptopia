@@ -23,8 +23,6 @@ const Nav = () => {
                 <Image src="/assets/images/logo.svg" alt="logo" width={32} height={32} className="object-contain" />
                 <p className="logo_text">Promptopia</p>
             </Link>
-
-            {/* Desktop Nav */}
             <div className="sm:flex hidden">
                 {session?.user ? (
                     <div className="flex gap-3 md:gap-5">
@@ -50,8 +48,6 @@ const Nav = () => {
                     </>
                 )}
             </div>
-
-            {/* Mobile Nav */}
             <div className="sm:hidden flex relative">
                 {session?.user ? (
                     <div className="flex gap-3">
