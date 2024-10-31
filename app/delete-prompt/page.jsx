@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Form from '../../components/Form';
-const UpdatePrompt = () => {
+const DeletePrompt = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const promptId = searchParams.get('id');
@@ -25,7 +25,7 @@ const UpdatePrompt = () => {
         if (promptId) getPromptDetails();
     }, [promptId]);
 
-    const updatePrompt = async (e) => {
+    const deletePrompt = async (e) => {
         e.preventDefault();
         setSubmitting(true);
 
@@ -33,14 +33,8 @@ const UpdatePrompt = () => {
 
         try {
             const response = await fetch(`/api/prompt/${promptId}`, {
-                method: 'PATCH',
-                body: JSON.stringify(
-                    {
-                        prompt: post.prompt,
-                        tag: post.tag,
-                    }
-                ),
-            })
+                method: 'DELETE',
+            });
             if (response.ok) {
                 router.push('/');
             }
@@ -53,13 +47,13 @@ const UpdatePrompt = () => {
 
     return (
         <Form
-            type="Update"
+            type="Delete"
             post={post}
             setPost={setPost}
             submitting={submitting}
-            handleSubmit={updatePrompt}
+            handleSubmit={deletePrompt}
         />
     )
 }
 
-export default UpdatePrompt;
+export default DeletePrompt;
