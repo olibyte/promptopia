@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const PromptList = ({data}) => {
     return (
         <div className="mt-16 prompt_layout">
             {data.map((post) => (
-                <PromptCard key={post._id} post={post} handleTagClick={handleTagClick} />
+                <PromptCard key={post._id} post={post} handleTagClick={() => {}} />
             ))}
         </div>
     )
@@ -16,8 +16,29 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
     const [searchText, setSearchText] = useState('');
     const [posts, setPosts] = useState([]); 
+    const [searchTimeout, setSearchTimeout] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
+
+    const filterPrompts = (searchtext) => {
+    return posts.filter(
+      ((p) => 
+        p.prompt.toLowerCase().includes(searchtext.toLowerCase()) ||
+        p.tag.toLowerCase().includes(searchtext.toLowerCase()) ||
+        p.creator.username.toLowerCase().includes(searchtext.toLowerCase())
+      )
+    );
+  };
     const handleSearchChange = (e) => {
+        clearTimeout(searchTimeout);
         setSearchText(e.target.value);
+    
+        // debounce method
+        setSearchTimeout(
+          setTimeout(() => {
+            const result = filterPrompts(e.target.value);
+            setSearchResults(result);
+          }, 500)
+        );
     }
 
     useEffect(() => {
@@ -41,10 +62,7 @@ const Feed = () => {
                     className="search_input peer"
                 />
             </form>
-            <PromptCardList
-                data={posts}
-                handleTagClick={() => {}}
-            />
+            <PromptList data={searchResults} />
         </section>
     )
 }

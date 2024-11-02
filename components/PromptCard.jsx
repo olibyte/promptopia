@@ -28,16 +28,16 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                         <Image
                             src={post.creator.image}
                             alt="user_image"
-                            width={40}
-                            height={40}
+                            width={32}
+                            height={32}
                             className="rounded-full object-contain"
                         />
                     ) : (
                         <Image
                             src="/assets/images/logo.svg"
                             alt="user_image"
-                            width={40}
-                            height={40}
+                            width={32}
+                            height={32}
                             className="rounded-full object-contain"
                         />
                     )}
