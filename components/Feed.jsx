@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
-const PromptList = ({data}) => {
+const PromptList = ({data, handleTagClick}) => {
     return (
         <div className="mt-16 prompt_layout">
             {data.map((post) => (
-                <PromptCard key={post._id} post={post} handleTagClick={() => {}} />
+                <PromptCard key={post._id} post={post} handleTagClick={handleTagClick} />
             ))}
         </div>
     )
@@ -37,8 +37,13 @@ const Feed = () => {
           setTimeout(() => {
             const result = filterPrompts(e.target.value);
             setSearchResults(result);
-          }, 500)
+          }, 200)
         );
+    };
+    const handleTagClick = (tagName) => {
+        setSearchText(tagName);
+        const result = filterPrompts(tagName);
+        setSearchResults(result);
     }
 
     useEffect(() => {
@@ -62,7 +67,8 @@ const Feed = () => {
                     className="search_input peer"
                 />
             </form>
-            <PromptList data={searchResults} />
+            
+                <PromptList data={searchResults} handleTagClick={handleTagClick}/> 
         </section>
     )
 }
